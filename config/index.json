@@ -1,0 +1,5 @@
+{
+  "appid":"wx8337795b18ad0164",
+  "appsecret":"0aa43ce636063ff85a532e6a33ef10bb",
+  "getJsapiTicket":"https://api.weixin.qq.com/cgi-bin/ticket/getticket"
+}
