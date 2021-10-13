@@ -9,6 +9,10 @@ const ModelUser1 = new Schema({
     type: String,
     default: ''
   },
+  serverId: {
+    type: String,
+    default: ''
+  },
   sex: {
     type: String,
     default: ''
