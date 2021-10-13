@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 import ModelUser1 from '../models/ModelUser1'
+import ModelImg from '../models/ModelImg';
 
 router.post('/doSubmit', async (req, res, next) => {
   let data = req.body;
@@ -15,6 +16,12 @@ router.post('/doSubmit', async (req, res, next) => {
     });
   } else {
     // let count = await ModelUser1.find({}).countDocuments();
+
+
+    let dataImg = await ModelImg.findOne({
+      serverId: '' + data.serverId,
+    })
+    data.img = dataImg.img;
     await ModelUser1.insertMany([data], {
       writeConcern: 0,
     })

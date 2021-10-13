@@ -9,6 +9,7 @@ var request = require('request');
 const crypto = require('crypto'); // node内置的加密模块
 import getAccessToken from '../util/accessToken'
 import get_jsapi_ticket from '../util/jsapiTicket'
+import ModelImg from '../models/ModelImg';
 
 
 function sha1(str) {
@@ -28,10 +29,27 @@ router.get('/saveImg', (req, res) => {
   getAccessToken().then(data => {
     axios.get(`https://api.weixin.qq.com/cgi-bin/media/get?access_token=${data.access_token}&media_id=${media_id}`, {
       responseType: 'arraybuffer'
-    }).then(response => {
+    }).then(async response => {
+      let img = 'data:image/png;base64,' + response.data.toString('base64');
+
+      let dataDB = await ModelImg.findOne({
+        serverId: '' + data.serverId,
+      })
+      if (dataDB) {
+        await dataDB.updateOne({
+          img: img
+        })
+      } else {
+        await ModelImg.insertMany([{
+          serverId: data.serverId,
+          img: img
+        }], {
+          writeConcern: 0,
+        })
+      }
       res.send({
         code: 0,
-        data: 'data:image/png;base64,' + response.data.toString('base64'),
+        data: img,
         message: ''
       })
     }).catch(err => {
