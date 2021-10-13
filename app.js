@@ -8,6 +8,7 @@ import ModelUser1 from './models/ModelUser1'
 import indexRouter from './routes/index'
 import wxRouter from './routes/wx'
 import AdminRouter from './routes/admin'
+var bodyParser =require('body-parser')
 
 var app = express();
 app.all('*', function (req, res, next) {
@@ -23,6 +24,9 @@ app.all('*', function (req, res, next) {
 		next();
 	}
 });
+
+
+app.use(bodyParser.json({ "limit":"10000kb"}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
