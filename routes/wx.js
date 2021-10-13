@@ -36,10 +36,12 @@ router.get('/saveImg', (req, res) => {
         serverId: '' + data.serverId,
       })
       if (dataDB) {
+        console.log('gengxin')
         await dataDB.updateOne({
           img: img
         })
       } else {
+        console.log('xieru')
         await ModelImg.insertMany([{
           serverId: data.serverId,
           img: img

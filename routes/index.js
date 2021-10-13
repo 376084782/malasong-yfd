@@ -18,11 +18,13 @@ router.post('/doSubmit', async (req, res, next) => {
     // let count = await ModelUser1.find({}).countDocuments();
 
 
-    console.log(data.serverId,'serverId')
+    console.log(data.serverId, 'serverId')
     let dataImg = await ModelImg.findOne({
       serverId: '' + data.serverId,
     })
-    data.img = dataImg.img;
+    if (dataImg) {
+      data.img = dataImg.img;
+    }
     await ModelUser1.insertMany([data], {
       writeConcern: 0,
     })
