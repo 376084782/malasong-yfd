@@ -15,10 +15,10 @@ router.post('/doSubmit', async (req, res, next) => {
       message: '该手机号已参与过报名，请勿重复提交。'
     });
   } else {
-    // let count = await ModelUser1.find({}).countDocuments();
+    let count = await ModelImg.find({}).countDocuments();
 
 
-    console.log(data.serverId, 'serverId')
+    console.log(data.serverId,count, 'serverId')
     let dataImg = await ModelImg.findOne({
       serverId: '' + data.serverId,
     })
