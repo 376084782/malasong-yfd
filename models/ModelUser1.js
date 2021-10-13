@@ -5,11 +5,11 @@ import mongoose from '../mongodb/db'
 const Schema = mongoose.Schema;
 // 图鉴表，根据等级
 const ModelUser1 = new Schema({
-  openid: {
+  name: {
     type: String,
     default: ''
   },
-  nickname: {
+  sex: {
     type: String,
     default: ''
   },
@@ -17,21 +17,17 @@ const ModelUser1 = new Schema({
     type: String,
     default: ''
   },
-  name: {
+  cardId: {
     type: String,
     default: ''
   },
-  number: {
+  img: {
     type: String,
     default: ''
   },
-  content: {
+  target: {
     type: String,
     default: ''
-  },
-  order: {
-    type: Number,
-    default: 0
   }
 })
 

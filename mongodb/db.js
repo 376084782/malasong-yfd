@@ -5,7 +5,7 @@ import config from 'config-lite';
 import chalk from 'chalk';
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1:27017/malasong', {
+mongoose.connect('mongodb://127.0.0.1:27017/yifangda', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
