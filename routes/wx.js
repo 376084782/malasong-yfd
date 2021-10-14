@@ -35,6 +35,7 @@ router.get('/saveImg', (req, res) => {
       let dataDB = await ModelImg.findOne({
         serverId: '' + data.serverId,
       })
+      console.log('写入serverId', data.serverId)
       if (dataDB) {
         console.log('gengxin')
         await dataDB.updateOne({
