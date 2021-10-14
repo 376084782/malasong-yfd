@@ -81,13 +81,11 @@ function writeExcel(datas, map) {
 router.get('/user/excel', async (req, res, next) => {
   let list = await ModelUser1.find({});
   let file = writeExcel(list, {
-    openid: '微信openid',
-    nickname: '微信昵称',
-    phone: '手机号',
     name: '姓名',
-    number: '身份证',
-    content: '烫印内容',
-    order: '订单号',
+    sex: '性别',
+    phone: '手机号',
+    cardId: '身份证',
+    target: '目标分',
   })
   res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
   res.setHeader("Content-Disposition", "attachment; filename=" + "list.xlsx");
