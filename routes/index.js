@@ -18,12 +18,15 @@ router.post('/doSubmit', async (req, res, next) => {
     let count = await ModelImg.find({}).countDocuments();
 
 
-    console.log(data.serverId,count, 'serverId')
+    console.log(data.serverId, count, 'serverId')
     let dataImg = await ModelImg.findOne({
       serverId: '' + data.serverId,
     })
     if (dataImg) {
+      console.log('获取到图片')
       data.img = dataImg.img;
+    } else {
+      console.log('没有目标图')
     }
     await ModelUser1.insertMany([data], {
       writeConcern: 0,
