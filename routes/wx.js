@@ -45,7 +45,7 @@ router.get('/saveImg', (req, res) => {
         console.log('xieru')
         await ModelImg.insertMany([{
           serverId: data.serverId,
-          img: img
+          img: 'img'
         }], {
           writeConcern: 0,
         })
