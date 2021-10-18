@@ -1,6 +1,7 @@
 import excelPort from 'node-xlsx';
 import ModelUser1 from '../models/ModelUser1'
 import ModelHaibao from '../models/ModelHaibao';
+import ModelResult from '../models/ModelResult';
 var express = require('express');
 var router = express.Router();
 var fs = require('fs')
@@ -19,6 +20,24 @@ router.post('/login', function (req, res, next) {
   }); //数据返回前端
 });
 
+router.get('/result/list', async (req, res, next) => {
+  let data = req.query;
+  let page = +data.page || 1;
+  let size = +data.size || 20;
+  let list = await ModelResult.find({}).skip(size * (page - 1)).limit(size);
+  let total = await ModelResult.find({}).countDocuments()
+  res.json({
+    code: 0,
+    data: {
+      list,
+      pageConfig: {
+        page,
+        size,
+        total: Math.ceil(total / size)
+      }
+    }
+  }); //数据返回前端
+});
 router.get('/user/list', async (req, res, next) => {
   let data = req.query;
   let page = +data.page || 1;

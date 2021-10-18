@@ -24,6 +24,28 @@ function getSignature(param) {
   sha1.update(str);
   return sha1.digest("hex");
 }
+
+router.get('/getImg', (req, res) => {
+  let media_id = req.query.media_id;
+  getAccessToken().then(data => {
+    axios.get(`https://api.weixin.qq.com/cgi-bin/media/get?access_token=${data.access_token}&media_id=${media_id}`, {
+      responseType: 'arraybuffer'
+    }).then(async response => {
+      let img = 'data:image/png;base64,' + response.data.toString('base64');
+      res.send({
+        code: 0,
+        data: img,
+        message: ''
+      })
+    }).catch(err => {
+      res.send({
+        code: -1,
+        message: '失败'
+      })
+    });
+  })
+});
+
 router.get('/saveImg', (req, res) => {
   let media_id = req.query.media_id;
   getAccessToken().then(data => {

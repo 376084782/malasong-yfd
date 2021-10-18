@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 import ModelUser1 from '../models/ModelUser1'
 import ModelImg from '../models/ModelImg';
+import ModelResult from '../models/ModelResult';
 
 router.post('/doSubmit', async (req, res, next) => {
   let data = req.body;
@@ -15,19 +16,12 @@ router.post('/doSubmit', async (req, res, next) => {
       message: '该手机号已参与过报名，请勿重复提交。'
     });
   } else {
-    let count = await ModelImg.find({}).countDocuments();
-
-
-    console.log(data.serverId, count, 'serverId')
     let dataImg = await ModelImg.findOne({
       serverId: '' + data.serverId,
     })
     if (dataImg) {
-      console.log('获取到图片')
       data.img = dataImg.img;
-    } else {
-      console.log('没有目标图')
-    }
+    } else {}
     await ModelUser1.insertMany([data], {
       writeConcern: 0,
     })
@@ -37,5 +31,20 @@ router.post('/doSubmit', async (req, res, next) => {
       message: '提交成功'
     });
   }
+});
+
+
+
+router.post('/doAfterRun', async (req, res, next) => {
+  let data = req.body;
+  await ModelResult.insertMany([data], {
+    writeConcern: 0,
+  })
+  res.json({
+    code: 0,
+    data: data,
+    message: '提交成功'
+  });
+
 });
 export default router;
