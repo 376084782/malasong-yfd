@@ -23,9 +23,7 @@ router.get('/user/list', async (req, res, next) => {
   let data = req.query;
   let page = +data.page || 1;
   let size = +data.size || 20;
-  let list = await ModelUser1.find({}).sort({
-    "ID": 1
-  }).skip(size * (page - 1)).limit(size);
+  let list = await ModelUser1.find({}).skip(size * (page - 1)).limit(size);
   let total = await ModelUser1.find({}).countDocuments()
   res.json({
     code: 0,
